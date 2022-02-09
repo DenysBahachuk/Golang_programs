@@ -14,7 +14,7 @@ func main() {
 
 	if len(input) != 2 {
 		fmt.Println("Provide one JSON file!")
-		return
+		os.Exit(1)
 	}
 
 	fileName := input[1]
@@ -22,32 +22,30 @@ func main() {
 	file, err := ioutil.ReadFile(fileName)
 	if err != nil {
 		fmt.Println("Error reading file. ", err)
-		return
+		os.Exit(2)
 	}
 
-	var data []interface{}
-	json.Unmarshal(file, &data)
+	var target Target
 
-	for i, d := range data {
-		t := fmt.Sprint(d)
-		n, err := strconv.Atoi(t)
-
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		data[i] = n + 1
+	err1 := json.Unmarshal(file, &target)
+	if err1 != nil {
+		fmt.Println(err)
+		os.Exit(3)
 	}
 
-	fileJSON, err := json.Marshal(data)
+	for i, v := range target.Numbers {
+		target.Numbers[i].Int = v.Int + 1
+	}
+
+	fileJSON, err := json.Marshal(target)
 	if err != nil {
 		fmt.Println(err)
-		return
+		os.Exit(4)
 	}
 
-	err1 := ioutil.WriteFile(fileName, fileJSON, 0)
-	if err != nil {
+	err2 := ioutil.WriteFile(fileName, fileJSON, 0)
+	if err2 != nil {
 		fmt.Println(err1)
-		return
+		os.Exit(5)
 	}
 }
