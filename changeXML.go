@@ -17,7 +17,7 @@ func main() {
 
 	if len(input) != 2 {
 		fmt.Println("Provide one XML file!")
-		return
+		os.Exit(1)
 	}
 
 	fileName := input[1]
@@ -25,7 +25,7 @@ func main() {
 	file, err := ioutil.ReadFile(fileName)
 	if err != nil {
 		fmt.Println("Error reading file. ", err)
-		return
+		os.Exit(2)
 	}
 
 	data := Record{}
@@ -33,7 +33,7 @@ func main() {
 	err1 := xml.Unmarshal(file, &data)
 	if err1 != nil {
 		fmt.Println("Error unmarshaling file. ", err1)
-		return
+		os.Exit(3)
 	}
 
 	for i, v := range data.Numbers {
@@ -43,12 +43,12 @@ func main() {
 	fileXML, err2 := xml.MarshalIndent(data, "", "     ")
 	if err2 != nil {
 		fmt.Println(err2)
-		return
+		os.Exit(4)
 	}
 
 	err3 := ioutil.WriteFile(fileName, fileXML, 0)
 	if err3 != nil {
 		fmt.Println(err3)
-		return
+		os.Exit(5)
 	}
 }
