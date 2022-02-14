@@ -7,6 +7,35 @@ import (
 	"os"
 )
 
+type Target struct {
+	Numbers []CustomInt `json:"numbers"`
+}
+
+type CustomInt struct {
+	Int int
+}
+
+const Quote_byte = 34
+
+func (ci *CustomInt) UnmarshalJSON(data []byte) error {
+	if data[0] == Quote_byte {
+		err := json.Unmarshal(data[1:len(data)-1], &ci.Int)
+		if err != nil {
+			return err
+		}
+	} else {
+		err := json.Unmarshal(data, &ci.Int)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (ci CustomInt) MarshalJSON() ([]byte, error) {
+	data, err := json.Marshal(ci.Int)
+	return data, err
+}
 func main() {
 	//provide a JSON file as a command line argument
 	input := os.Args
