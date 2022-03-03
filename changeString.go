@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-
+	// Input path to the file and two strings as command line arguments
 	file1 := flag.String("f", "", "filePath")
 	str1 := flag.String("s1", "", "string1")
 	str2 := flag.String("s2", "", "string2")
