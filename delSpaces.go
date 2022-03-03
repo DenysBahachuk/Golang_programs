@@ -51,7 +51,7 @@ func delSpaces(filePath string) error {
 }
 
 func main() {
-
+	// Enter the path to a txt file to be changed
 	input := os.Args
 	if len(input) < 2 {
 		fmt.Println("Input a path to a file!")
