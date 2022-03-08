@@ -46,7 +46,7 @@ func third(in <-chan int) {
 }
 
 func main() {
-
+	//Enter the min and max integer values of the range in wich random numbers will be generated.
 	input := os.Args
 
 	if len(input) != 3 {
