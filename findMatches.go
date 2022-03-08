@@ -43,10 +43,10 @@ func countMatches(wg *sync.WaitGroup, in <-chan int) {
 }
 
 func main() {
-
+	// Enter paths to files first and then a string to find matches. Сommand line should be used to enter data. 
 	input := os.Args
 	if len(input) < 3 {
-		fmt.Println("Not enough arguments! Enter paths to files first and then a string to find matches.")
+		fmt.Println("Not enough arguments! Enter paths to files and a string to find matches.")
 		os.Exit(1)
 	}
 	phrase := input[len(input)-1]
